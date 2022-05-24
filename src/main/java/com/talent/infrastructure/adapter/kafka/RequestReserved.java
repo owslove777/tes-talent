@@ -1,10 +1,13 @@
-package com.talent.domain;
+package com.talent.infrastructure.adapter.kafka;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.PostPersist;
 
 //의뢰서는 buyerId, talentId, talent의 level 정보를 갖고있다.
-@Entity
-public class Request {
+//@Entity
+public class RequestReserved extends AbstractEvent {
 
 	@Id
 	@GeneratedValue
@@ -38,32 +41,10 @@ public class Request {
 		this.buyerId = buyerId;
 	}
 
-	Level level;
-
-	public Level getLevel() {
-		return level;
-	}
-
-	public void setLevel(Level level) {
-		this.level = level;
-	}
-
 	@PostPersist
 	public void onPostPersist() {
 		RequestReserved requestReserved = new RequestReserved();
-		requestReserved.setRequestId(this.requestId);
-		requestReserved.setBuyerId(this.buyerId);
-		requestReserved.setTalentId(this.talentId);
-		requestReserved.setLevel(this.level);
 
-		requestReserved.publishAfterCommit();
-	}
-
-	@Override
-	public String toString() {
-
-		return "<a href='./" + this.getClass().getSimpleName().toLowerCase() + "'" + ">"
-				+ this.getClass().getSimpleName() + "</a>";
 	}
 
 }
