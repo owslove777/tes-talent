@@ -1,10 +1,10 @@
-package com.talent.domain.ports.spi;
+package com.talent.domain.ports.api;
 
 import com.talent.domain.data.TalentItemDto;
 
 import java.util.List;
 
-public interface TalentItemPersistencePort {
+public interface TalentItemServicePort {
     List<TalentItemDto> findAll();
 
     TalentItemDto findById(Long id);

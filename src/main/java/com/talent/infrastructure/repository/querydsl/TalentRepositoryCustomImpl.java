@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class TalentUserMapRepositoryCustomImpl implements TalentUserMapRepositoryCustom{
+public class TalentRepositoryCustomImpl implements TalentRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
     private QTalentUserMap userMap = QTalentUserMap.talentUserMap;

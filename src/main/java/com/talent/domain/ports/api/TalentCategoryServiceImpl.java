@@ -2,7 +2,7 @@ package com.talent.domain.ports.api;
 
 import com.talent.domain.data.TalentCategoryDto;
 import com.talent.domain.ports.spi.TalentCategoryPersistencePort;
-import com.talent.domain.ports.spi.TalentUserMapPersistencePort;
+import com.talent.domain.ports.spi.TalentPersistencePort;
 import com.talent.infrastructure.entity.TalentCategory;
 import lombok.RequiredArgsConstructor;
 
@@ -13,7 +13,7 @@ import java.util.List;
 public class TalentCategoryServiceImpl implements TalentCategoryServicePort {
 
     private final TalentCategoryPersistencePort categoryPersistencePort;
-    private final TalentUserMapPersistencePort talentUserMapPersistencePort;
+    private final TalentPersistencePort talentUserMapPersistencePort;
 
     @Override
     public TalentCategoryDto save(TalentCategoryDto src) {

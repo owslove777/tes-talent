@@ -1,28 +1,28 @@
 package com.talent.domain.ports.api;
 
-import com.talent.domain.data.TalentUserMapDto;
-import com.talent.domain.ports.spi.TalentUserMapPersistencePort;
+import com.talent.domain.data.TalentDto;
+import com.talent.domain.ports.spi.TalentPersistencePort;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @RequiredArgsConstructor
-public class TalentUserMapServiceImpl implements TalentUserMapServicePort{
+public class TalentServiceImpl implements TalentServicePort {
 
-    private final TalentUserMapPersistencePort talentUserMapPersistence;
+    private final TalentPersistencePort talentUserMapPersistence;
 
     @Override
-    public List<TalentUserMapDto> findAll() {
+    public List<TalentDto> findAll() {
         return talentUserMapPersistence.findAll();
     }
 
     @Override
-    public TalentUserMapDto findById(Long id) {
+    public TalentDto findById(Long id) {
         return talentUserMapPersistence.findById(id);
     }
 
     @Override
-    public TalentUserMapDto save(TalentUserMapDto src) {
+    public TalentDto save(TalentDto src) {
         return talentUserMapPersistence.save(src);
     }
 
@@ -32,12 +32,12 @@ public class TalentUserMapServiceImpl implements TalentUserMapServicePort{
     }
 
     @Override
-    public List<TalentUserMapDto> findByCategoryId(Long id) {
+    public List<TalentDto> findByCategoryId(Long id) {
         return talentUserMapPersistence.findByCategoryId(id);
     }
 
     @Override
-    public List<TalentUserMapDto> findByCategoryIdAndAddress(Long id, String address) {
+    public List<TalentDto> findByCategoryIdAndAddress(Long id, String address) {
         return talentUserMapPersistence.findByCategoryIdAndAddress(id, address);
     }
 }

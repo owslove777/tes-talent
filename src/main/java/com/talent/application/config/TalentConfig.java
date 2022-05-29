@@ -2,14 +2,14 @@ package com.talent.application.config;
 
 import com.talent.domain.ports.api.TalentCategoryServiceImpl;
 import com.talent.domain.ports.api.TalentCategoryServicePort;
-import com.talent.domain.ports.api.TalentUserMapServiceImpl;
-import com.talent.domain.ports.api.TalentUserMapServicePort;
+import com.talent.domain.ports.api.TalentServiceImpl;
+import com.talent.domain.ports.api.TalentServicePort;
 import com.talent.domain.ports.spi.TalentCategoryPersistencePort;
 import com.talent.domain.ports.spi.TalentItemPersistencePort;
-import com.talent.domain.ports.spi.TalentUserMapPersistencePort;
+import com.talent.domain.ports.spi.TalentPersistencePort;
 import com.talent.infrastructure.adapter.jpa.TalentCategoryJpaAdapter;
 import com.talent.infrastructure.adapter.jpa.TalentItemJpaAdapter;
-import com.talent.infrastructure.adapter.jpa.TalentUserMapJpaAdapter;
+import com.talent.infrastructure.adapter.jpa.TalentJpaAdapter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,8 +20,8 @@ public class TalentConfig {
         return new TalentCategoryJpaAdapter();
     }
     @Bean
-    public TalentUserMapPersistencePort talentUserMapPersistence(){
-        return new TalentUserMapJpaAdapter();
+    public TalentPersistencePort talentUserMapPersistence(){
+        return new TalentJpaAdapter();
     }
     @Bean
     public TalentItemPersistencePort talentItemPersistence(){
@@ -37,7 +37,7 @@ public class TalentConfig {
         return new TalentCategoryServiceImpl(talentCategoryPersistence(), talentUserMapPersistence());
     }
     @Bean
-    public TalentUserMapServicePort TalentUserMapService() {
-        return new TalentUserMapServiceImpl(talentUserMapPersistence());
+    public TalentServicePort TalentUserMapService() {
+        return new TalentServiceImpl(talentUserMapPersistence());
     }
 }

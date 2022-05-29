@@ -4,6 +4,6 @@ import com.talent.infrastructure.entity.TalentUserMap;
 
 import java.util.List;
 
-public interface TalentUserMapRepositoryCustom {
+public interface TalentRepositoryCustom {
     List<TalentUserMap> findByCategoryIdAndAddress(Long id, String address);
 }
