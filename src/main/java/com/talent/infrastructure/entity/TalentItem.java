@@ -2,10 +2,8 @@ package com.talent.infrastructure.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.talent.domain.data.TalentItemDto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.talent.domain.enums.TALENT_ITEM_STATUS;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -15,7 +13,8 @@ import java.util.stream.Collectors;
 
 @Entity(name = "talent_item")
 @Table(name = "talent_item")
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -30,7 +29,9 @@ public class TalentItem {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
 	LocalDateTime dateTime;
 	Integer price;
-	String status;
+
+	@Enumerated(EnumType.STRING)
+	TALENT_ITEM_STATUS status;
 
 	public static TalentItem parseFrom(TalentItemDto src) {
 		return TalentItem.builder()
@@ -43,7 +44,7 @@ public class TalentItem {
 	}
 
 	public static List<TalentItemDto> toDtoList(List<TalentItem> list) {
-		return list.stream().map(i -> i.toDto()).collect(Collectors.toList());
+		return list.stream().map(TalentItem::toDto).collect(Collectors.toList());
 	}
 
 	public TalentItemDto toDto() {

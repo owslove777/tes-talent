@@ -2,6 +2,8 @@ package com.talent.application.controller;
 
 import com.talent.domain.data.TalentDto;
 import com.talent.domain.ports.api.TalentServicePort;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TalentController {
 
-    private final TalentServicePort talentUserMapService;
+    private final TalentServicePort talentService;
 
     /**
      * 카테고리와 사용자의 매핑관계 전체 조회
@@ -20,17 +22,22 @@ public class TalentController {
      */
     @GetMapping("/talents")
     public List<TalentDto> allMappings(){
-        return talentUserMapService.findAll();
+        return talentService.findAll();
     }
 
     /**
-     * id로 매핑 조회
+     * id로 talent 조회
      * @param id
      * @return
      */
     @GetMapping("/talents/{id}")
     public TalentDto findById(@PathVariable Long id){
-        return talentUserMapService.findById(id);
+        return talentService.findById(id);
+    }
+
+    @GetMapping("/talents/detail/{id}")
+    public TalentDto findByIdWithOptions(@PathVariable Long id){
+        return talentService.findByIdWithOptions(id);
     }
 
     /**
@@ -39,32 +46,33 @@ public class TalentController {
      * @param address
      * @return
      */
-    @GetMapping("/talents/category/{id}")
+    @GetMapping("/talents/category/{id}") @Operation(summary = "카테고리로 판매 재능 조회, 주소는 옵션")
     public List<TalentDto> findByCategoryId(@PathVariable Long id,
                                             @RequestParam(required = false) String address){
         if (Strings.isEmpty(address)) {
-            return talentUserMapService.findByCategoryId(id);
+            return talentService.findByCategoryId(id);
         }
-        return talentUserMapService.findByCategoryIdAndAddress(id, address);
+        return talentService.findByCategoryIdAndAddress(id, address);
     }
 
     /**
-     * 신규 매핑 생성
+     * 신규 재능 생성
      * @param src
      * @return
      */
     @PostMapping("/talents")
     public TalentDto createNewCategoryUserMap(@RequestBody TalentDto src){
-        return talentUserMapService.save(src);
+        src.setId(null); // 자동 생성
+        return talentService.save(src);
     }
 
     /**
-     * 매핑 삭제
+     * 재능 삭제, 하위 옵션도 함께 삭제됨
      * @param id
      * @return
      */
     @DeleteMapping("/talents/{id}")
     public Boolean deleteCategory(@PathVariable Long id){
-        return talentUserMapService.deleteById(id);
+        return talentService.deleteById(id);
     }
 }

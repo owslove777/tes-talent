@@ -9,7 +9,13 @@ public interface TalentItemPersistencePort {
 
     TalentItemDto findById(Long id);
 
+    Boolean deleteById(Long id);
+
     TalentItemDto save(TalentItemDto src);
 
-    Boolean deleteById(Long id);
+    List<TalentItemDto> saveAll(List<TalentItemDto> talentSelectOptions);
+
+    List<TalentItemDto> findByTalentId(Long id);
+
+    void deleteByTalentId(Long id);
 }

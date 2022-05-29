@@ -9,6 +9,8 @@ public interface TalentServicePort {
 
     TalentDto findById(Long id);
 
+    TalentDto findByIdWithOptions(Long id);
+
     TalentDto save(TalentDto src);
 
     Boolean deleteById(Long id);

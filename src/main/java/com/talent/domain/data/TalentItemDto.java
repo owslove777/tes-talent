@@ -1,6 +1,7 @@
 package com.talent.domain.data;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.talent.domain.enums.TALENT_ITEM_STATUS;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,5 +21,5 @@ public class TalentItemDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     LocalDateTime dateTime;
     Integer price;
-    String status;
+    TALENT_ITEM_STATUS status;
 }

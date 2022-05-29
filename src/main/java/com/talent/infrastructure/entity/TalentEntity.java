@@ -1,10 +1,7 @@
 package com.talent.infrastructure.entity;
 
 import com.talent.domain.data.TalentDto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,11 +10,12 @@ import java.util.stream.Collectors;
 @Entity(name = "talent_master")
 @Table(name = "talent_master",
 		uniqueConstraints={@UniqueConstraint(columnNames = {"categoryId", "userId"})})
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TalentUserMap {
+public class TalentEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,8 +33,8 @@ public class TalentUserMap {
 
 	String description;
 
-	public static TalentUserMap parseFrom(TalentDto src) {
-		return TalentUserMap.builder()
+	public static TalentEntity parseFrom(TalentDto src) {
+		return TalentEntity.builder()
 				.id(src.getId())
 				.categoryId(src.getCategoryId())
 				.userId(src.getUserId())
@@ -46,8 +44,8 @@ public class TalentUserMap {
 				.build();
 	}
 
-	public static List<TalentDto> toDtoList(List<TalentUserMap> list) {
-		return list.stream().map(m -> m.toDto()).collect(Collectors.toList());
+	public static List<TalentDto> toDtoList(List<TalentEntity> list) {
+		return list.stream().map(TalentEntity::toDto).collect(Collectors.toList());
 	}
 
 	public TalentDto toDto() {
@@ -57,6 +55,7 @@ public class TalentUserMap {
 				.userId(userId)
 				.title(title)
 				.description(description)
+				.address(address)
 				.build();
 	}
 }
