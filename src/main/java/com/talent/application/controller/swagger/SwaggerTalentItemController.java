@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/talent")
-@Tag(name = "_swagger_#03_Talent_Item")
 public class SwaggerTalentItemController extends TalentItemController {
 
     public SwaggerTalentItemController(TalentItemServicePort talentItemService) {

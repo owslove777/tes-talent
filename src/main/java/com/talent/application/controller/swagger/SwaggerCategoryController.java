@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/talent")
-@Tag(name = "_swagger_#01_Category")
+//@Tag(name = "_swagger_#01_Category")
 public class SwaggerCategoryController extends CategoryController {
     public SwaggerCategoryController(TalentCategoryServicePort talentService) {
         super(talentService);
