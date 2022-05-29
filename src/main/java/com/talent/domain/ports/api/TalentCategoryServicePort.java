@@ -1,12 +1,11 @@
-package com.talent.domain.ports.spi;
+package com.talent.domain.ports.api;
 
 import com.talent.domain.data.TalentCategoryDto;
-import com.talent.infrastructure.entity.TalentCategory;
 
 import java.util.List;
 
-public interface TalentCategoryPersistencePort {
-    TalentCategoryDto save(TalentCategory entity);
+public interface TalentCategoryServicePort {
+    TalentCategoryDto save(TalentCategoryDto src);
 
     Boolean deleteById(Long id);
 

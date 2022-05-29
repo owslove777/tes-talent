@@ -1,5 +1,9 @@
 package com.talent.application.config;
 
+import com.talent.domain.ports.api.TalentCategoryServiceImpl;
+import com.talent.domain.ports.api.TalentCategoryServicePort;
+import com.talent.domain.ports.api.TalentUserMapServiceImpl;
+import com.talent.domain.ports.api.TalentUserMapServicePort;
 import com.talent.domain.ports.spi.TalentCategoryPersistencePort;
 import com.talent.domain.ports.spi.TalentItemPersistencePort;
 import com.talent.domain.ports.spi.TalentUserMapPersistencePort;
@@ -28,4 +32,12 @@ public class TalentConfig {
 //    public StarRateServicePort bookService(){
 //        return new StarRateServiceImpl(bookPersistence());
 //    }
+    @Bean
+    public TalentCategoryServicePort TalentCategoryService() {
+        return new TalentCategoryServiceImpl(talentCategoryPersistence(), talentUserMapPersistence());
+    }
+    @Bean
+    public TalentUserMapServicePort TalentUserMapService() {
+        return new TalentUserMapServiceImpl(talentUserMapPersistence());
+    }
 }

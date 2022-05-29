@@ -1,10 +1,10 @@
-package com.talent.domain.ports.spi;
+package com.talent.domain.ports.api;
 
 import com.talent.domain.data.TalentUserMapDto;
 
 import java.util.List;
 
-public interface TalentUserMapPersistencePort {
+public interface TalentUserMapServicePort {
     List<TalentUserMapDto> findAll();
 
     TalentUserMapDto findById(Long id);
@@ -16,6 +16,4 @@ public interface TalentUserMapPersistencePort {
     List<TalentUserMapDto> findByCategoryId(Long id);
 
     List<TalentUserMapDto> findByCategoryIdAndAddress(Long id, String address);
-
-    void deleteByCategoryId(Long id);
 }
