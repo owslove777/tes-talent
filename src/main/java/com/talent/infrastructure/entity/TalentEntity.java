@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity(name = "talent_master")
-@Table(name = "talent_master",
-		uniqueConstraints={@UniqueConstraint(columnNames = {"categoryId", "userId"})})
+@Table(name = "talent_master")
+// uniqueConstraints={@UniqueConstraint(columnNames = {"categoryId", "userId"})}
 @Setter
 @Getter
 @NoArgsConstructor
