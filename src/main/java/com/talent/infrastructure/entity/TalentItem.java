@@ -22,16 +22,16 @@ public class TalentItem {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Long id;
-	Long talentId;
+	private Long id;
+	private Long talentId;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-	LocalDateTime dateTime;
-	Integer price;
+	private LocalDateTime dateTime;
+	private Integer price;
 
 	@Enumerated(EnumType.STRING)
-	TALENT_ITEM_STATUS status;
+	private TALENT_ITEM_STATUS status;
 
 	public static TalentItem parseFrom(TalentItemDto src) {
 		return TalentItem.builder()

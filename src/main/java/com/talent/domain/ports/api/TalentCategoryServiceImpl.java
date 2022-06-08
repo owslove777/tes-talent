@@ -18,7 +18,7 @@ public class TalentCategoryServiceImpl implements TalentCategoryServicePort {
     @Override
     public TalentCategoryDto save(TalentCategoryDto src) {
         TalentCategory entity = TalentCategory.parseFrom(src);
-        entity.setTalentId(null); // 자동 주입
+        entity.setCategoryId(null); // 자동 주입
         return categoryPersistencePort.save(entity);
     }
 

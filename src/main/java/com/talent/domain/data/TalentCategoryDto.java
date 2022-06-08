@@ -6,6 +6,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class TalentCategoryDto {
-    Long talentId;
+    Long categoryId;
     String categoryName;
 }

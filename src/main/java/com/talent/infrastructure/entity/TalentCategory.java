@@ -20,13 +20,13 @@ public class TalentCategory {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Long talentId;
+	Long categoryId;
 
 	String categoryName;
 
 	public static TalentCategory parseFrom(TalentCategoryDto src) {
 		return TalentCategory.builder()
-				.talentId(src.getTalentId())
+				.categoryId(src.getCategoryId())
 				.categoryName(src.getCategoryName())
 				.build();
 	}
@@ -37,7 +37,7 @@ public class TalentCategory {
 
 	public TalentCategoryDto toDto() {
 		TalentCategoryDto dto = new TalentCategoryDto();
-		dto.setTalentId(talentId);
+		dto.setCategoryId(categoryId);
 		dto.setCategoryName(categoryName);
 		return dto;
 	}

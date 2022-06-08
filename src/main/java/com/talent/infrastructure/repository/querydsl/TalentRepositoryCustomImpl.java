@@ -19,7 +19,7 @@ public class TalentRepositoryCustomImpl implements TalentRepositoryCustom {
     public List<TalentEntity> findByCategoryIdAndAddress(Long id, String address) {
         JPAQuery<TalentEntity> query = queryFactory
                 .selectFrom(talent)
-                .where(talent.id.eq(id));
+                .where(talent.categoryId.eq(id));
         if (Strings.isNotEmpty(address)) {
             query = query.where(talent.address.eq(address));
         }
