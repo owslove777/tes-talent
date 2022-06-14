@@ -18,4 +18,6 @@ public interface TalentPersistencePort {
     List<TalentDto> findByCategoryIdAndAddress(Long id, String address);
 
     void deleteByCategoryId(Long id);
+
+    List<TalentDto> findByUserId(Long userId);
 }

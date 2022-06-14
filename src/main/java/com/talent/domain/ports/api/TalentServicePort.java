@@ -18,4 +18,6 @@ public interface TalentServicePort {
     List<TalentDto> findByCategoryId(Long id);
 
     List<TalentDto> findByCategoryIdAndAddress(Long id, String address);
+
+    List<TalentDto> findByUserId(Long id);
 }

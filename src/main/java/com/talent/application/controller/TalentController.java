@@ -57,6 +57,17 @@ public class TalentController {
     }
 
     /**
+     * category id로 매핑 관계 조회
+     * @param id
+     * @param address
+     * @return
+     */
+    @GetMapping("/talents/user/{id}") @Operation(summary = "사용자 ID로 판매 재능 조회")
+    public List<TalentDto> findByUserId(@PathVariable Long id){
+        return talentService.findByUserId(id);
+    }
+
+    /**
      * 신규 재능 생성
      * @param src
      * @return

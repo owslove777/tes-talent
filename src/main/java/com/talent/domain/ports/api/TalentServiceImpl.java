@@ -58,4 +58,9 @@ public class TalentServiceImpl implements TalentServicePort {
     public List<TalentDto> findByCategoryIdAndAddress(Long id, String address) {
         return talentPersistence.findByCategoryIdAndAddress(id, address);
     }
+
+    @Override
+    public List<TalentDto> findByUserId(Long userId) {
+        return talentPersistence.findByUserId(userId);
+    }
 }

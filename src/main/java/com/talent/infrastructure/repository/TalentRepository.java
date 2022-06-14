@@ -10,4 +10,6 @@ public interface TalentRepository extends JpaRepository<TalentEntity, Long>, Tal
     List<TalentEntity> findByCategoryId(Long id);
 
     void deleteByCategoryId(Long id);
+
+    List<TalentEntity> findByUserId(Long userId);
 }

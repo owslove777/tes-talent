@@ -57,4 +57,10 @@ public class TalentJpaAdapter implements TalentPersistencePort {
     public void deleteByCategoryId(Long id) {
         talentRepository.deleteByCategoryId(id);
     }
+
+    @Override
+    public List<TalentDto> findByUserId(Long userId) {
+        List<TalentEntity> list = talentRepository.findByUserId(userId);
+        return TalentEntity.toDtoList(list);
+    }
 }
