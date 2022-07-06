@@ -16,6 +16,7 @@ public class TalentDto {
 	Long id;
 	Long categoryId;
 	Long userId;
+	String userName;
 	String address;
 	String title;
 	String description;

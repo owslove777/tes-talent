@@ -27,6 +27,8 @@ public class TalentEntity {
 	@Column(nullable = false)
 	Long userId;
 
+	String userName;
+
 	String address;
 
 	String title;
@@ -38,6 +40,7 @@ public class TalentEntity {
 				.id(src.getId())
 				.categoryId(src.getCategoryId())
 				.userId(src.getUserId())
+				.userName(src.getUserName())
 				.address(src.getAddress())
 				.title(src.getTitle())
 				.description(src.getDescription())
@@ -53,6 +56,7 @@ public class TalentEntity {
 				.id(id)
 				.categoryId(categoryId)
 				.userId(userId)
+				.userName(userName)
 				.title(title)
 				.description(description)
 				.address(address)
