@@ -40,7 +40,7 @@ public class PolicyHandler {
                 ContractReservedKafkaVo voReserved = parseToClass(eventString, ContractReservedKafkaVo.class);
                 log.info("### ITEM ID ### " + voReserved.getContractDto().getTalentItemId());
                 log.info("### ITEM STATUS ### " + voReserved.getContractDto().getContractStatus());
-                talentItemService.updateStatus(voReserved.getContractDto().getTalentItemId(), TALENT_ITEM_STATUS.CLOSED);
+                talentItemService.updateStatus(voReserved.getContractDto().getTalentItemId(), TALENT_ITEM_STATUS.SOLD_OUT);
                 // 재능인 정보에 신규 계약건 추가 (userRequestCntTotal++)
                 // 요청자 정보에 신규 계약건 추가 (myRequestCntTotal++)
                 break;
