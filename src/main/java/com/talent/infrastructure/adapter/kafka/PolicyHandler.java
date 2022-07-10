@@ -37,6 +37,8 @@ public class PolicyHandler {
             case "ContractReservedKafka": // 신규 계약 요청 시
                 log.info("## 신규 계약 요청 이벤트 발생");
                 ContractReservedKafkaVo voReserved = parseToClass(eventString, ContractReservedKafkaVo.class);
+                log.info("### ITEM ID ### " + voReserved.getContractDto().getTalentItemId());
+                log.info("### ITEM STATUS ### " + voReserved.getContractDto().getContractStatus());
                 talentItemService.updateStatus(voReserved.getContractDto().getTalentItemId(), TALENT_ITEM_STATUS.valueOf(voReserved.getContractDto().getContractStatus()));
                 // 재능인 정보에 신규 계약건 추가 (userRequestCntTotal++)
                 // 요청자 정보에 신규 계약건 추가 (myRequestCntTotal++)
@@ -44,6 +46,8 @@ public class PolicyHandler {
             case "ContractUpdated": // 계약 상태 업데이트 시
                 log.info("## 계약 상태 업데이트 발생");
                 ContractUpdatedVo voUpdated = parseToClass(eventString, ContractUpdatedVo.class);
+                log.info("### ITEM ID ### " + voUpdated.getContractDto().getTalentItemId());
+                log.info("### ITEM STATUS ### " + voUpdated.getContractDto().getContractStatus());
                 talentItemService.updateStatus(voUpdated.getContractDto().getTalentItemId(), TALENT_ITEM_STATUS.valueOf(voUpdated.getContractDto().getContractStatus()));
                 break;
 //            case "SettlementCreated":
