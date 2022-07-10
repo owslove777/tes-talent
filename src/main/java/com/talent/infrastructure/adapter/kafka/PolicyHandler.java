@@ -35,11 +35,12 @@ public class PolicyHandler {
 //                log.info("## 신규 사용자 생성 이벤트 발생");
 //                break;
             case "ContractReservedKafka": // 신규 계약 요청 시
+                // ACCEPT_REQUESTED, ACCEPTED, PAID, REJECTED, PERFORMED, CANCELED
                 log.info("## 신규 계약 요청 이벤트 발생");
                 ContractReservedKafkaVo voReserved = parseToClass(eventString, ContractReservedKafkaVo.class);
                 log.info("### ITEM ID ### " + voReserved.getContractDto().getTalentItemId());
                 log.info("### ITEM STATUS ### " + voReserved.getContractDto().getContractStatus());
-                talentItemService.updateStatus(voReserved.getContractDto().getTalentItemId(), TALENT_ITEM_STATUS.valueOf(voReserved.getContractDto().getContractStatus()));
+                talentItemService.updateStatus(voReserved.getContractDto().getTalentItemId(), TALENT_ITEM_STATUS.CLOSED);
                 // 재능인 정보에 신규 계약건 추가 (userRequestCntTotal++)
                 // 요청자 정보에 신규 계약건 추가 (myRequestCntTotal++)
                 break;
@@ -48,7 +49,9 @@ public class PolicyHandler {
                 ContractUpdatedVo voUpdated = parseToClass(eventString, ContractUpdatedVo.class);
                 log.info("### ITEM ID ### " + voUpdated.getContractDto().getTalentItemId());
                 log.info("### ITEM STATUS ### " + voUpdated.getContractDto().getContractStatus());
-                talentItemService.updateStatus(voUpdated.getContractDto().getTalentItemId(), TALENT_ITEM_STATUS.valueOf(voUpdated.getContractDto().getContractStatus()));
+                if ("CANCELED".equals(voUpdated.getContractDto().getContractStatus()) || "REJECTED".equals(voUpdated.getContractDto().getContractStatus())){
+                    talentItemService.updateStatus(voUpdated.getContractDto().getTalentItemId(), TALENT_ITEM_STATUS.ON_SALE);
+                }
                 break;
 //            case "SettlementCreated":
 //                log.info("## 신규 정산 대상 발생");
