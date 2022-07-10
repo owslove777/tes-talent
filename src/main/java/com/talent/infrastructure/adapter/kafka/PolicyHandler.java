@@ -2,6 +2,11 @@ package com.talent.infrastructure.adapter.kafka;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.talent.domain.enums.TALENT_ITEM_STATUS;
+import com.talent.domain.ports.api.TalentItemServicePort;
+import com.talent.infrastructure.adapter.kafka.vo.ContractReservedKafkaVo;
+import com.talent.infrastructure.adapter.kafka.vo.ContractUpdatedVo;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -10,9 +15,11 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 @Slf4j
 public class PolicyHandler {
 
+    private final TalentItemServicePort talentItemService;
     ObjectMapper mapper = new ObjectMapper();
 
     // 카프카 이슈 해결 완료
@@ -29,11 +36,15 @@ public class PolicyHandler {
 //                break;
             case "ContractReservedKafka": // 신규 계약 요청 시
                 log.info("## 신규 계약 요청 이벤트 발생");
-                // 재능 Item 상태 업데이트
+                ContractReservedKafkaVo voReserved = parseToClass(eventString, ContractReservedKafkaVo.class);
+                talentItemService.updateStatus(voReserved.getContractDto().getTalentItemId(), TALENT_ITEM_STATUS.valueOf(voReserved.getContractDto().getContractStatus()));
+                // 재능인 정보에 신규 계약건 추가 (userRequestCntTotal++)
+                // 요청자 정보에 신규 계약건 추가 (myRequestCntTotal++)
                 break;
             case "ContractUpdated": // 계약 상태 업데이트 시
                 log.info("## 계약 상태 업데이트 발생");
-                // Cancel 시 재능 Item 상태 다시 업데이트
+                ContractUpdatedVo voUpdated = parseToClass(eventString, ContractUpdatedVo.class);
+                talentItemService.updateStatus(voUpdated.getContractDto().getTalentItemId(), TALENT_ITEM_STATUS.valueOf(voUpdated.getContractDto().getContractStatus()));
                 break;
 //            case "SettlementCreated":
 //                log.info("## 신규 정산 대상 발생");
@@ -47,6 +58,15 @@ public class PolicyHandler {
             default:
                 break;
         }
+    }
+
+    private <T> T parseToClass(String eventString, Class<T> clazz) {
+        try {
+            return mapper.readValue(eventString, clazz);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private Map<String, String> parseToMap(String eventString) {
