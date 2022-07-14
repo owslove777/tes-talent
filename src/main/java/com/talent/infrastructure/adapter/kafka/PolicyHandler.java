@@ -38,9 +38,14 @@ public class PolicyHandler {
                 // ACCEPT_REQUESTED, ACCEPTED, PAID, REJECTED, PERFORMED, CANCELED
                 log.info("## 신규 계약 요청 이벤트 발생");
                 ContractReservedKafkaVo voReserved = parseToClass(eventString, ContractReservedKafkaVo.class);
-                log.info("### ITEM ID ### " + voReserved.getContractDto().getTalentItemId());
-                log.info("### ITEM STATUS ### " + voReserved.getContractDto().getContractStatus());
-                talentItemService.updateStatus(voReserved.getContractDto().getTalentItemId(), TALENT_ITEM_STATUS.SOLD_OUT);
+                try {
+                    log.info("### ITEM ID ### " + voReserved.getContractDto().getTalentItemId());
+                    log.info("### ITEM STATUS ### " + voReserved.getContractDto().getContractStatus());
+                    talentItemService.updateStatus(voReserved.getContractDto().getTalentItemId(), TALENT_ITEM_STATUS.SOLD_OUT);
+                } catch (RuntimeException e) {
+                    // 실패 이벤트 전달
+                    new TalentItemContractFailed(voReserved.getContractDto()).publish();
+                }
                 // 재능인 정보에 신규 계약건 추가 (userRequestCntTotal++)
                 // 요청자 정보에 신규 계약건 추가 (myRequestCntTotal++)
                 break;
